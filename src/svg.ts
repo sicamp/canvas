@@ -78,13 +78,12 @@ export class SvgBuilder {
         lines.forEach((line, index) => {
             const tspan = document.createElementNS(this.nameSpace, "tspan");
 
-            tspan.textContent = line;
+            tspan.textContent = line.trim() || "\u00a0";
             tspan.setAttribute("x", this.title.getAttribute("x")!);
             tspan.setAttribute(
                 "dy",
                 index > 0 ? `${lineHeight}em` : `${offsetFirst}em`,
             );
-            tspan.textContent = line;
 
             this.title.appendChild(tspan);
         });
