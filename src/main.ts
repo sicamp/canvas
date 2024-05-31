@@ -9,10 +9,22 @@ if (!svg) {
     throw new Error("Cannot find SVG");
 }
 
+const inputTextArea = document.querySelector<HTMLTextAreaElement>("textarea");
+
+if (!inputTextArea) {
+    throw new Error("No text area");
+}
+
+inputTextArea.addEventListener("input", () => {
+    cover.setTitle({
+        text: inputTextArea.value,
+        color: TEXT_COLOR,
+        fontSize: 80,
+    });
+});
+
 const cover = new SvgBuilder(svg);
 
-cover.setBackground(BACKGROUND).setTitle({
-    text: `Hello\nworld`,
-    color: TEXT_COLOR,
-    fontSize: 80,
-});
+cover
+    .setBackground(BACKGROUND)
+    .setTitle({ text: inputTextArea.value, color: TEXT_COLOR, fontSize: 80 });

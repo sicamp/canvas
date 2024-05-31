@@ -1,5 +1,44 @@
+:root {
+    --content-gap: 20px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
 #app {
-    max-width: 520px;
+    display: flex;
+}
+
+.settings {
+    padding: var(--content-gap);
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+}
+
+label {
+    margin-bottom: 5px;
+}
+
+input,
+select,
+textarea {
+    padding: 5px;
+    margin-bottom: 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.preview {
+    padding: var(--content-gap);
+    flex-grow: 1;
 }
 
 svg {
