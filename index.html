@@ -7,14 +7,25 @@
     </head>
     <body>
         <div id="app">
-            <svg
-                class="cover"
-                viewBox="0 0 1280 720"
-                xmlns="http://www.w3.org/2000/svg"
-            >
-                <rect class="background" width="100%" height="100%" />
-                <text class="title" x="600" y="360" text-anchor="middle"></text>
-            </svg>
+            <form class="settings" action="#">
+                <label for="title">Title:</label>
+                <textarea id="title" rows="8">Hello world</textarea>
+            </form>
+            <div class="preview">
+                <svg
+                    class="cover"
+                    viewBox="0 0 1280 720"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <rect class="background" width="100%" height="100%" />
+                    <text
+                        class="title"
+                        x="600"
+                        y="360"
+                        text-anchor="middle"
+                    ></text>
+                </svg>
+            </div>
         </div>
         <script type="module" src="/src/main.ts"></script>
     </body>
