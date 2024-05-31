@@ -1,4 +1,4 @@
-import { BACKGROUND, TEXT_COLOR } from "./constants";
+import { BACKGROUND, STRIPE_COLORS, TEXT_COLOR } from "./constants";
 import { SvgBuilder } from "./svg";
 
 import "./style.css";
@@ -27,4 +27,5 @@ const cover = new SvgBuilder(svg);
 
 cover
     .setBackground(BACKGROUND)
+    .addStripes(STRIPE_COLORS)
     .setTitle({ text: inputTextArea.value, color: TEXT_COLOR, fontSize: 80 });
