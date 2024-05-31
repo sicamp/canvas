@@ -1,4 +1,5 @@
 import { BACKGROUND, STRIPE_COLORS, TEXT_COLOR } from "./constants";
+import { SettingsManager } from "./settings";
 import { SvgBuilder } from "./svg";
 
 import "./style.css";
@@ -9,17 +10,19 @@ if (!svg) {
     throw new Error("Cannot find SVG");
 }
 
-const inputTextArea = document.querySelector<HTMLTextAreaElement>("textarea");
+const form = document.querySelector<HTMLFormElement>("form");
 
-if (!inputTextArea) {
-    throw new Error("No text area");
+if (!form) {
+    throw new Error("Cannot find form");
 }
 
-inputTextArea.addEventListener("input", () => {
+const settings = new SettingsManager(form);
+
+settings.onTitleChange((data) => {
     cover.setTitle({
-        text: inputTextArea.value,
+        text: data.title,
         color: TEXT_COLOR,
-        fontSize: 80,
+        fontSize: data.fontSize,
     });
 });
 
@@ -28,4 +31,4 @@ const cover = new SvgBuilder(svg);
 cover
     .setBackground(BACKGROUND)
     .addStripes(STRIPE_COLORS)
-    .setTitle({ text: inputTextArea.value, color: TEXT_COLOR, fontSize: 80 });
+    .setTitle({ text: settings.title, color: TEXT_COLOR, fontSize: 80 });
