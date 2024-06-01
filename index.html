@@ -14,6 +14,11 @@
     <body>
         <div id="app">
             <form class="settings" action="#">
+                <label for="theme">Theme:</label>
+                <select id="theme">
+                    <option value="theme-dark" selected>Dark</option>
+                    <option value="theme-light">Light</option>
+                </select>
                 <label for="title">Title:</label>
                 <textarea id="title" rows="8">Hello world</textarea>
                 <label for="font">Font size:</label>
@@ -26,70 +31,85 @@
                     xmlns="http://www.w3.org/2000/svg"
                 >
                     <style>
-                        .background {
-                            fill: #343a42;
-                        }
                         .year,
                         .title {
                             fill: #fefefd;
                         }
-                        .camp-outline,
-                        .camp-side,
-                        .location {
+                        .theme-dark .background,
+                        .theme-light .background {
+                            fill: #343a42;
+                        }
+                        .theme-dark .camp-outline,
+                        .theme-dark .camp-side,
+                        .theme-dark .location {
                             fill: #3986cf;
                         }
-                        .stripe-light {
+                        .theme-dark .stripe-light {
                             fill: #20aabb;
                         }
-                        .stripe-dark {
+                        .theme-dark .stripe-dark {
                             fill: #1770bb;
                         }
+
+                        .theme-light .camp-outline,
+                        .theme-light .camp-side,
+                        .theme-light .location {
+                            fill: #4ac3d6;
+                        }
+                        .theme-light .stripe-light {
+                            fill: #20aabb;
+                        }
+                        .theme-light .stripe-dark {
+                            fill: #3986cf;
+                        }
                     </style>
-                    <rect class="background" width="100%" height="100%" />
-                    <g class="stripes"></g>
-                    <path class="camp-side" d="M88 124H63l52-70v42z" />
-                    <path
-                        class="camp-outline"
-                        d="M67 122h96l-48-65zm103 8H59q-1.1 0-2.2-.5-.9-.7-1.5-1.5a4 4 0 0 1 .4-4.1L110 50 95 30.2a4 4 0 0 1 .9-5.4 4 4 0 0 1 5.4.7L115 43l12.8-17.4a4 4 0 0 1 5.5-.9q1.3 1 1.5 2.6.3 1.5-.7 2.9L119 50l54.5 73.9a4 4 0 0 1-1 5.6c-.6.3-1.8.5-2.5.5"
-                    />
-                    <text
-                        class="location"
-                        font-family="Jost"
-                        font-weight="700"
-                        letter-spacing="0.2em"
-                        text-anchor="middle"
-                        x="120"
-                        y="175"
-                        font-size="32"
-                    />
-                    <text
-                        class="year"
-                        font-family="Jost"
-                        font-weight="700"
-                        letter-spacing="0.2em"
-                        text-anchor="middle"
-                        x="46"
-                        y="88"
-                        font-size="26"
-                    />
-                    <text
-                        class="year"
-                        font-family="Jost"
-                        font-weight="700"
-                        letter-spacing="0.2em"
-                        text-anchor="middle"
-                        x="186"
-                        y="88"
-                        font-size="26"
-                    />
-                    <text
-                        class="title"
-                        x="320"
-                        y="400"
-                        font-family="Jost"
-                        font-weight="700"
-                        text-anchor="start"
-                    />
+                    <g class="theme theme-dark">
+                        <rect class="background" width="100%" height="100%" />
+                        <g class="stripes"></g>
+                        <path class="camp-side" d="M88 124H63l52-70v42z" />
+                        <path
+                            class="camp-outline"
+                            d="M67 122h96l-48-65zm103 8H59q-1.1 0-2.2-.5-.9-.7-1.5-1.5a4 4 0 0 1 .4-4.1L110 50 95 30.2a4 4 0 0 1 .9-5.4 4 4 0 0 1 5.4.7L115 43l12.8-17.4a4 4 0 0 1 5.5-.9q1.3 1 1.5 2.6.3 1.5-.7 2.9L119 50l54.5 73.9a4 4 0 0 1-1 5.6c-.6.3-1.8.5-2.5.5"
+                        />
+                        <text
+                            class="location"
+                            font-family="Jost"
+                            font-weight="700"
+                            letter-spacing="0.2em"
+                            text-anchor="middle"
+                            x="120"
+                            y="175"
+                            font-size="32"
+                        />
+                        <text
+                            class="year"
+                            font-family="Jost"
+                            font-weight="700"
+                            letter-spacing="0.2em"
+                            text-anchor="middle"
+                            x="46"
+                            y="88"
+                            font-size="26"
+                        />
+                        <text
+                            class="year"
+                            font-family="Jost"
+                            font-weight="700"
+                            letter-spacing="0.2em"
+                            text-anchor="middle"
+                            x="186"
+                            y="88"
+                            font-size="26"
+                        />
+                        <text
+                            class="title"
+                            x="320"
+                            y="400"
+                            font-family="Jost"
+                            font-weight="700"
+                            text-anchor="start"
+                        />
+                    </g>
                 </svg>
             </div>
         </div>

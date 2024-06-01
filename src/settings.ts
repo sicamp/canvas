@@ -1,4 +1,5 @@
 type SettingsData = {
+    theme: string;
     title: string;
     fontSize: number;
 };
@@ -10,10 +11,20 @@ interface SettingsChangeHandler {
 const DEFAULT_FONT_SIZE = 80;
 
 export class SettingsManager {
+    private readonly themeSelect: HTMLSelectElement;
     private readonly textarea: HTMLTextAreaElement;
     private readonly fontSizeInput: HTMLInputElement;
 
     constructor(private readonly form: HTMLFormElement) {
+        const themeSelect =
+            this.form.querySelector<HTMLSelectElement>("select");
+
+        if (!themeSelect) {
+            throw new Error("Cannot find theme select");
+        }
+
+        this.themeSelect = themeSelect;
+
         const inputTextArea =
             this.form.querySelector<HTMLTextAreaElement>("textarea");
 
@@ -33,20 +44,22 @@ export class SettingsManager {
         this.fontSizeInput = fontSizeInput;
     }
 
-    onTitleChange(callback: SettingsChangeHandler) {
-        this.textarea.addEventListener("input", () => {
+    onSettingsChange(callback: SettingsChangeHandler) {
+        const handler = () => {
             callback({
+                theme: this.theme,
                 title: this.title,
                 fontSize: this.fontSize,
             });
-        });
+        };
 
-        this.fontSizeInput.addEventListener("change", () => {
-            callback({
-                title: this.title,
-                fontSize: this.fontSize,
-            });
-        });
+        this.themeSelect.addEventListener("change", handler);
+        this.textarea.addEventListener("input", handler);
+        this.fontSizeInput.addEventListener("change", handler);
+    }
+
+    get theme() {
+        return this.themeSelect.value;
     }
 
     get title() {

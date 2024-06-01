@@ -1,3 +1,4 @@
+import { THEMES } from "./constants";
 import { randomInt } from "./utils";
 
 type TextOptions = {
@@ -28,20 +29,20 @@ const minVisibleWidth = 20;
 export class SvgBuilder {
     private readonly nameSpace = "http://www.w3.org/2000/svg";
 
+    private readonly theme: SVGGraphicsElement;
     private readonly title: SVGTextElement;
     private readonly stripes: SVGElement;
     private readonly year: [SVGTextElement, SVGTextElement];
     private readonly location: SVGTextElement;
 
     constructor(private readonly element: SVGElement) {
-        const background =
-            this.element.querySelector<SVGGeometryElement>(".background");
+        const theme = this.element.querySelector<SVGGeometryElement>(".theme");
 
-        if (!background) {
-            throw new Error("Cannot find background element");
+        if (!theme) {
+            throw new Error("Cannot find theme element");
         }
 
-        this.background = background;
+        this.theme = theme;
 
         const title = this.element.querySelector<SVGTextElement>(".title");
 
@@ -76,6 +77,14 @@ export class SvgBuilder {
         }
 
         this.location = location;
+    }
+
+    setTheme(newTheme: string) {
+        THEMES.forEach((theme) => this.theme.classList.remove(theme));
+
+        this.theme.classList.add(newTheme);
+
+        return this;
     }
 
     setTitle(options: TextOptions) {
