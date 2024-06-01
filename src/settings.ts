@@ -14,6 +14,7 @@ export class SettingsManager {
     private readonly themeSelect: HTMLSelectElement;
     private readonly textarea: HTMLTextAreaElement;
     private readonly fontSizeInput: HTMLInputElement;
+    private readonly downloadButton: HTMLButtonElement;
 
     constructor(private readonly form: HTMLFormElement) {
         const themeSelect =
@@ -42,6 +43,15 @@ export class SettingsManager {
         }
 
         this.fontSizeInput = fontSizeInput;
+
+        const downloadButton =
+            this.form.querySelector<HTMLButtonElement>("button");
+
+        if (!downloadButton) {
+            throw new Error("Cannot find download button");
+        }
+
+        this.downloadButton = downloadButton;
     }
 
     onSettingsChange(callback: SettingsChangeHandler) {
@@ -56,6 +66,10 @@ export class SettingsManager {
         this.themeSelect.addEventListener("change", handler);
         this.textarea.addEventListener("input", handler);
         this.fontSizeInput.addEventListener("change", handler);
+    }
+
+    onDownload(callback: () => void) {
+        this.downloadButton.addEventListener("click", callback);
     }
 
     get theme() {
