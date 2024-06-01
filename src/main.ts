@@ -1,4 +1,5 @@
 import { STRIPE_COLORS } from "./constants";
+import { getFontsRules } from "./fonts";
 import { SettingsManager } from "./settings";
 import { SvgBuilder } from "./svg";
 
@@ -35,3 +36,6 @@ cover
     .setYear(new Date().getUTCFullYear())
     .setLocation("Пермь")
     .setTitle({ text: settings.title, fontSize: settings.fontSize });
+
+const rules = await getFontsRules();
+cover.injectFonts(rules);
