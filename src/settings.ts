@@ -52,6 +52,8 @@ export class SettingsManager {
         }
 
         this.downloadButton = downloadButton;
+
+        this.form.addEventListener("submit", (event) => event.preventDefault());
     }
 
     onSettingsChange(callback: SettingsChangeHandler) {
@@ -69,7 +71,8 @@ export class SettingsManager {
     }
 
     onDownload(callback: () => void) {
-        this.downloadButton.addEventListener("click", callback);
+        this.downloadButton.addEventListener("click", () => callback());
+        this.form.addEventListener("submit", () => callback());
     }
 
     get theme() {
