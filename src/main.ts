@@ -31,4 +31,5 @@ const cover = new SvgBuilder(svg);
 cover
     .setBackground(BACKGROUND)
     .addStripes(STRIPE_COLORS)
+    .setYear(new Date().getUTCFullYear())
     .setTitle({ text: settings.title, color: TEXT_COLOR, fontSize: 80 });

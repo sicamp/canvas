@@ -30,6 +30,7 @@ export class SvgBuilder {
     private readonly background: SVGGeometryElement;
     private readonly title: SVGTextElement;
     private readonly stripes: SVGElement;
+    private readonly year: [SVGTextElement, SVGTextElement];
 
     constructor(private readonly element: SVGElement) {
         const background =
@@ -56,6 +57,15 @@ export class SvgBuilder {
         }
 
         this.stripes = stripes;
+
+        const [left, right] =
+            this.element.querySelectorAll<SVGTextElement>(".year");
+
+        if (!left || !right) {
+            throw new Error("Cannot find elements for the year");
+        }
+
+        this.year = [left, right];
     }
 
     setBackground(color: string) {
@@ -89,6 +99,17 @@ export class SvgBuilder {
 
         this.title.setAttribute("fill", options.color);
         this.title.setAttribute("font-size", `${options.fontSize}px`);
+
+        return this;
+    }
+
+    setYear(year: number) {
+        if (year < 2000 || year > 3000) {
+            throw new Error("Year should be between 2000 and 3000");
+        }
+
+        this.year[0].textContent = year.toString().slice(0, 2);
+        this.year[1].textContent = year.toString().slice(2, 4);
 
         return this;
     }
