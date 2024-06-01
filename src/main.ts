@@ -2,6 +2,7 @@ import { STRIPE_COLORS } from "./constants";
 import { getFontsRules } from "./fonts";
 import { SettingsManager } from "./settings";
 import { SvgBuilder } from "./svg";
+import { download } from "./download";
 
 import "./style.css";
 
@@ -19,15 +20,6 @@ if (!form) {
 
 const settings = new SettingsManager(form);
 
-settings.onSettingsChange((data) => {
-    cover.setTitle({
-        text: data.title,
-        fontSize: data.fontSize,
-    });
-
-    cover.setTheme(data.theme);
-});
-
 const cover = new SvgBuilder(svg);
 
 cover
@@ -37,5 +29,24 @@ cover
     .setLocation("Пермь")
     .setTitle({ text: settings.title, fontSize: settings.fontSize });
 
-const rules = await getFontsRules();
-cover.injectFonts(rules);
+settings.onSettingsChange((data) => {
+    cover.setTitle({
+        text: data.title,
+        fontSize: data.fontSize,
+    });
+
+    cover.setTheme(data.theme);
+});
+
+settings.onDownload(async () => {
+    const imageData = await cover.createDataUri();
+
+    download("sicamp.png", imageData);
+});
+
+async function initAsync() {
+    const rules = await getFontsRules();
+    cover.injectFonts(rules);
+}
+
+initAsync();

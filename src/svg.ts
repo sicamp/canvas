@@ -22,7 +22,8 @@ const minWidth = 30;
 const maxWidth = 90;
 const marginLeft = 12;
 const marginBottom = 220;
-const viewPortHeight = 1280;
+const viewPortWidth = 1280;
+const viewPortHeight = 720;
 const stripesEnd = 180;
 const minVisibleWidth = 20;
 
@@ -144,6 +145,37 @@ export class SvgBuilder {
         this.element.insertBefore(style, this.element.firstChild);
 
         return this;
+    }
+
+    async createDataUri() {
+        return new Promise<string>((resolve, reject) => {
+            const img = new Image();
+
+            img.addEventListener("load", () => {
+                const canvas = document.createElement("canvas");
+                const ctx = canvas.getContext("2d")!;
+
+                // Устанавливаем размеры canvas
+                canvas.width = viewPortWidth;
+                canvas.height = viewPortHeight;
+
+                // Рисуем SVG на canvas
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                ctx.drawImage(img, 0, 0);
+
+                // Преобразуем canvas в PNG-данные
+                const pngData = canvas.toDataURL("image/png");
+
+                resolve(pngData);
+            });
+
+            img.addEventListener("error", reject);
+
+            img.src =
+                "data:image/svg+xml;utf8," +
+                encodeURIComponent(this.element.outerHTML);
+        });
     }
 
     addStripes(classNames: string[]) {
