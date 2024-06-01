@@ -20,7 +20,6 @@ const stripeHeight = 12;
 const stripeSpacing = 18;
 const minWidth = 40;
 const maxWidth = 160;
-const marginTop = 18;
 const marginBottom = 602;
 const viewBoxWidth = 1280;
 const minVisibleWidth = 20;
@@ -95,7 +94,6 @@ export class SvgBuilder {
     }
 
     addStripes(colors: string[]) {
-        this.fillStripeSection(marginTop, marginTop + 100, colors);
         this.fillStripeSection(marginBottom, marginBottom + 100, colors);
 
         return this;
