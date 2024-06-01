@@ -1,4 +1,4 @@
-import { BACKGROUND, STRIPE_COLORS, TEXT_COLOR } from "./constants";
+import { STRIPE_COLORS } from "./constants";
 import { SettingsManager } from "./settings";
 import { SvgBuilder } from "./svg";
 
@@ -21,7 +21,6 @@ const settings = new SettingsManager(form);
 settings.onTitleChange((data) => {
     cover.setTitle({
         text: data.title,
-        color: TEXT_COLOR,
         fontSize: data.fontSize,
     });
 });
@@ -29,8 +28,7 @@ settings.onTitleChange((data) => {
 const cover = new SvgBuilder(svg);
 
 cover
-    .setBackground(BACKGROUND)
     .addStripes(STRIPE_COLORS)
     .setYear(new Date().getUTCFullYear())
     .setLocation("Пермь")
-    .setTitle({ text: settings.title, color: TEXT_COLOR, fontSize: 80 });
+    .setTitle({ text: settings.title, fontSize: 80 });

@@ -2,7 +2,6 @@ import { randomInt } from "./utils";
 
 type TextOptions = {
     text: string;
-    color: string;
     fontSize: number;
 };
 
@@ -11,7 +10,7 @@ type RectangleOptions = {
     y: number;
     width: number;
     height: number;
-    color: string;
+    className: string;
 };
 
 const lineHeight = 1.2;
@@ -29,7 +28,6 @@ const minVisibleWidth = 20;
 export class SvgBuilder {
     private readonly nameSpace = "http://www.w3.org/2000/svg";
 
-    private readonly background: SVGGeometryElement;
     private readonly title: SVGTextElement;
     private readonly stripes: SVGElement;
     private readonly year: [SVGTextElement, SVGTextElement];
@@ -80,12 +78,6 @@ export class SvgBuilder {
         this.location = location;
     }
 
-    setBackground(color: string) {
-        this.background.setAttribute("fill", color);
-
-        return this;
-    }
-
     setTitle(options: TextOptions) {
         const lines = options.text.split("\n");
 
@@ -109,7 +101,6 @@ export class SvgBuilder {
             this.title.appendChild(tspan);
         });
 
-        this.title.setAttribute("fill", options.color);
         this.title.setAttribute("font-size", `${options.fontSize}px`);
 
         return this;
@@ -132,22 +123,22 @@ export class SvgBuilder {
         return this;
     }
 
-    addStripes(colors: string[]) {
+    addStripes(classNames: string[]) {
         for (
             let y = marginBottom;
             y < viewPortHeight;
             y += stripeHeight + stripeSpacing
         ) {
             let x = marginLeft;
-            let colorIndex = randomInt(0, colors.length);
+            let classNameIndex = randomInt(0, classNames.length);
 
             while (x < stripesEnd) {
                 const stripeWidth = randomInt(minWidth, maxWidth);
                 const visibleWidth =
                     stripeWidth + x < 0 ? stripeWidth + x : stripeWidth;
 
-                colorIndex = (colorIndex + 1) % colors.length;
-                const stripeColor = colors[colorIndex];
+                classNameIndex = (classNameIndex + 1) % classNames.length;
+                const className = `stripe ${classNames[classNameIndex]}`;
 
                 if (visibleWidth >= minVisibleWidth) {
                     this.stripes.appendChild(
@@ -156,7 +147,7 @@ export class SvgBuilder {
                             y,
                             width: stripeWidth,
                             height: stripeHeight,
-                            color: stripeColor,
+                            className: className,
                         }),
                     );
                 }
@@ -168,14 +159,14 @@ export class SvgBuilder {
         return this;
     }
 
-    protected buildRect({ x, y, width, height, color }: RectangleOptions) {
+    protected buildRect({ x, y, width, height, className }: RectangleOptions) {
         const rect = document.createElementNS(this.nameSpace, "rect");
 
         rect.setAttribute("x", x.toString());
         rect.setAttribute("y", y.toString());
         rect.setAttribute("width", width.toString());
         rect.setAttribute("height", height.toString());
-        rect.setAttribute("fill", color);
+        rect.setAttribute("class", className);
 
         return rect;
     }
