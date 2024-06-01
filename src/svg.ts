@@ -132,6 +132,20 @@ export class SvgBuilder {
         return this;
     }
 
+    injectFonts(rules: string[]) {
+        const style = document.createElementNS(this.nameSpace, "style");
+
+        style.setAttribute("type", "text/css");
+
+        rules.forEach((rule) => {
+            style.appendChild(document.createTextNode(rule));
+        });
+
+        this.element.insertBefore(style, this.element.firstChild);
+
+        return this;
+    }
+
     addStripes(classNames: string[]) {
         for (
             let y = marginBottom;
