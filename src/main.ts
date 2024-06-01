@@ -32,4 +32,5 @@ cover
     .setBackground(BACKGROUND)
     .addStripes(STRIPE_COLORS)
     .setYear(new Date().getUTCFullYear())
+    .setLocation("Пермь")
     .setTitle({ text: settings.title, color: TEXT_COLOR, fontSize: 80 });
