@@ -31,6 +31,7 @@ export class SvgBuilder {
     private readonly title: SVGTextElement;
     private readonly stripes: SVGElement;
     private readonly year: [SVGTextElement, SVGTextElement];
+    private readonly location: SVGTextElement;
 
     constructor(private readonly element: SVGElement) {
         const background =
@@ -66,6 +67,15 @@ export class SvgBuilder {
         }
 
         this.year = [left, right];
+
+        const location =
+            this.element.querySelector<SVGTextElement>(".location");
+
+        if (!location) {
+            throw new Error("Cannot find title element");
+        }
+
+        this.location = location;
     }
 
     setBackground(color: string) {
@@ -110,6 +120,12 @@ export class SvgBuilder {
 
         this.year[0].textContent = year.toString().slice(0, 2);
         this.year[1].textContent = year.toString().slice(2, 4);
+
+        return this;
+    }
+
+    setLocation(text: string) {
+        this.location.textContent = text;
 
         return this;
     }
