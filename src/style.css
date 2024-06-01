@@ -14,13 +14,23 @@ body {
 
 #app {
     display: flex;
+    flex-direction: column;
 }
 
 .settings {
     padding: var(--content-gap);
     display: flex;
     flex-direction: column;
-    width: 400px;
+}
+
+@media screen and (min-width: 800px) {
+    #app {
+        flex-direction: row;
+    }
+
+    .settings {
+        width: 400px;
+    }
 }
 
 label {
