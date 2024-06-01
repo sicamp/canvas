@@ -16,12 +16,14 @@ type RectangleOptions = {
 
 const lineHeight = 1.2;
 
-const stripeHeight = 12;
-const stripeSpacing = 18;
-const minWidth = 40;
-const maxWidth = 160;
-const marginBottom = 602;
-const viewBoxWidth = 1280;
+const stripeHeight = 8;
+const stripeSpacing = 12;
+const minWidth = 30;
+const maxWidth = 90;
+const marginLeft = 12;
+const marginBottom = 220;
+const viewPortHeight = 1280;
+const stripesEnd = 180;
 const minVisibleWidth = 20;
 
 export class SvgBuilder {
@@ -131,23 +133,15 @@ export class SvgBuilder {
     }
 
     addStripes(colors: string[]) {
-        this.fillStripeSection(marginBottom, marginBottom + 100, colors);
+        for (
+            let y = marginBottom;
+            y < viewPortHeight;
+            y += stripeHeight + stripeSpacing
+        ) {
+            let x = marginLeft;
+            let colorIndex = randomInt(0, colors.length);
 
-        return this;
-    }
-
-    protected fillStripeSection(
-        yStart: number,
-        yEnd: number,
-        colors: string[],
-    ) {
-        let colorIndex = 0;
-        for (let y = yStart; y < yEnd; y += stripeHeight + stripeSpacing) {
-            colorIndex = (colorIndex + 1) % colors.length;
-
-            let x = -maxWidth; // Start from left side, stripes may overflow
-
-            while (x < viewBoxWidth) {
+            while (x < stripesEnd) {
                 const stripeWidth = randomInt(minWidth, maxWidth);
                 const visibleWidth =
                     stripeWidth + x < 0 ? stripeWidth + x : stripeWidth;
@@ -170,6 +164,8 @@ export class SvgBuilder {
                 x += stripeWidth + stripeSpacing;
             }
         }
+
+        return this;
     }
 
     protected buildRect({ x, y, width, height, color }: RectangleOptions) {
