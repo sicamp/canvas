@@ -18,17 +18,20 @@ if (!form) {
 
 const settings = new SettingsManager(form);
 
-settings.onTitleChange((data) => {
+settings.onSettingsChange((data) => {
     cover.setTitle({
         text: data.title,
         fontSize: data.fontSize,
     });
+
+    cover.setTheme(data.theme);
 });
 
 const cover = new SvgBuilder(svg);
 
 cover
+    .setTheme(settings.theme)
     .addStripes(STRIPE_COLORS)
     .setYear(new Date().getUTCFullYear())
     .setLocation("Пермь")
-    .setTitle({ text: settings.title, fontSize: 80 });
+    .setTitle({ text: settings.title, fontSize: settings.fontSize });
