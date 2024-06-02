@@ -39,11 +39,18 @@ label {
 
 input,
 select,
-textarea {
+textarea,
+button {
     padding: 5px;
     margin-bottom: 10px;
-    width: 100%;
+    font-size: inherit;
     box-sizing: border-box;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
 }
 
 .preview {
