@@ -164,6 +164,12 @@ export class SvgBuilder {
         return this;
     }
 
+    createSvgUri() {
+        return (
+            "data:image/svg+xml," + encodeURIComponent(this.element.outerHTML)
+        );
+    }
+
     async createPngUri() {
         return new Promise<string>((resolve, reject) => {
             const img = new Image();
@@ -189,9 +195,7 @@ export class SvgBuilder {
 
             img.addEventListener("error", reject);
 
-            img.src =
-                "data:image/svg+xml," +
-                encodeURIComponent(this.element.outerHTML);
+            img.src = this.createSvgUri();
         });
     }
 
