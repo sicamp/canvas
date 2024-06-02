@@ -165,9 +165,9 @@ export class SvgBuilder {
     }
 
     createSvgUri() {
-        return (
-            "data:image/svg+xml," + encodeURIComponent(this.element.outerHTML)
-        );
+        const value = this.element.outerHTML.replace(/&nbsp;/g, "\u00a0");
+
+        return "data:image/svg+xml," + encodeURIComponent(value);
     }
 
     async createPngUri() {
