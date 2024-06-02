@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build --base=\"${PUBLIC_URL:-/}\"",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "style": "prettier --check src index.html",
+    "reformat": "prettier --write src index.html"
   },
   "devDependencies": {
     "prettier": "3.2.5",
