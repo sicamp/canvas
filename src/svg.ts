@@ -28,6 +28,9 @@ const viewPortWidth = 1280;
 const viewPortHeight = 720;
 const stripesEnd = 180;
 const minVisibleWidth = 20;
+const textStartAnchor = 320;
+const textMiddleAnchor = 730;
+const textEndAnchor = 1180;
 
 export class SvgBuilder {
     private readonly nameSpace = "http://www.w3.org/2000/svg";
@@ -83,15 +86,15 @@ export class SvgBuilder {
 
         switch (options.textAlign) {
             case "left":
-                this.title.setAttribute("x", "320");
+                this.title.setAttribute("x", textStartAnchor.toString());
                 this.title.setAttribute("text-anchor", "start");
                 break;
             case "center":
-                this.title.setAttribute("x", "730");
+                this.title.setAttribute("x", textMiddleAnchor.toString());
                 this.title.setAttribute("text-anchor", "middle");
                 break;
             case "right":
-                this.title.setAttribute("x", "1180");
+                this.title.setAttribute("x", textEndAnchor.toString());
                 this.title.setAttribute("text-anchor", "end");
                 break;
         }
