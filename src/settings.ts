@@ -18,7 +18,8 @@ export class SettingsManager {
     private readonly textarea: HTMLTextAreaElement;
     private readonly fontSizeInput: HTMLInputElement;
     private readonly alignSelect: HTMLSelectElement;
-    private readonly downloadButton: HTMLButtonElement;
+    private readonly downloadPng: HTMLButtonElement;
+    private readonly downloadSvg: HTMLButtonElement;
 
     constructor(private readonly form: HTMLFormElement) {
         const themeSelect =
@@ -57,14 +58,23 @@ export class SettingsManager {
 
         this.alignSelect = alignSelect;
 
-        const downloadButton =
-            this.form.querySelector<HTMLButtonElement>("button");
+        const downloadPng =
+            this.form.querySelector<HTMLButtonElement>("[name=png]");
 
-        if (!downloadButton) {
-            throw new Error("Cannot find download button");
+        if (!downloadPng) {
+            throw new Error("Cannot find download PNG button");
         }
 
-        this.downloadButton = downloadButton;
+        this.downloadPng = downloadPng;
+
+        const downloadSvg =
+            this.form.querySelector<HTMLButtonElement>("[name=svg]");
+
+        if (!downloadSvg) {
+            throw new Error("Cannot find download SVG button");
+        }
+
+        this.downloadSvg = downloadSvg;
 
         this.form.addEventListener("submit", (event) => event.preventDefault());
     }
@@ -85,9 +95,13 @@ export class SettingsManager {
         this.alignSelect.addEventListener("change", handler);
     }
 
-    onDownload(callback: () => void) {
-        this.downloadButton.addEventListener("click", () => callback());
+    onDownloadPng(callback: () => void) {
+        this.downloadPng.addEventListener("click", () => callback());
         this.form.addEventListener("submit", () => callback());
+    }
+
+    onDownloadSvg(callback: () => void) {
+        this.downloadSvg.addEventListener("click", () => callback());
     }
 
     get theme() {

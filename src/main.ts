@@ -43,10 +43,16 @@ settings.onSettingsChange((data) => {
     cover.setTheme(data.theme);
 });
 
-settings.onDownload(async () => {
+settings.onDownloadPng(async () => {
     const imageData = await cover.createPngUri();
 
     download("sicamp.png", imageData);
+});
+
+settings.onDownloadSvg(() => {
+    const imageData = cover.createSvgUri();
+
+    download("sicamp.svg", imageData);
 });
 
 async function initAsync() {
