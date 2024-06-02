@@ -164,7 +164,7 @@ export class SvgBuilder {
         return this;
     }
 
-    async createDataUri() {
+    async createPngUri() {
         return new Promise<string>((resolve, reject) => {
             const img = new Image();
 
@@ -190,7 +190,7 @@ export class SvgBuilder {
             img.addEventListener("error", reject);
 
             img.src =
-                "data:image/svg+xml;utf8," +
+                "data:image/svg+xml," +
                 encodeURIComponent(this.element.outerHTML);
         });
     }

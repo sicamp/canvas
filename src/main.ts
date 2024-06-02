@@ -44,7 +44,7 @@ settings.onSettingsChange((data) => {
 });
 
 settings.onDownload(async () => {
-    const imageData = await cover.createDataUri();
+    const imageData = await cover.createPngUri();
 
     download("sicamp.png", imageData);
 });
