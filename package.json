@@ -7,6 +7,7 @@
     "dev": "vite",
     "build": "tsc && vite build --base=\"${PUBLIC_URL:-/}\"",
     "preview": "vite preview",
+    "lint": "npm run style",
     "style": "prettier --check src index.html",
     "reformat": "prettier --write src index.html"
   },
