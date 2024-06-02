@@ -22,59 +22,30 @@ export class SettingsManager {
     private readonly downloadSvg: HTMLButtonElement;
 
     constructor(private readonly form: HTMLFormElement) {
-        const themeSelect =
-            this.form.querySelector<HTMLSelectElement>("#theme");
-
-        if (!themeSelect) {
-            throw new Error("Cannot find theme select");
-        }
-
-        this.themeSelect = themeSelect;
-
-        const inputTextArea =
-            this.form.querySelector<HTMLTextAreaElement>("textarea");
-
-        if (!inputTextArea) {
-            throw new Error("Cannot find text area");
-        }
-
-        this.textarea = inputTextArea;
-
-        const fontSizeInput =
-            this.form.querySelector<HTMLInputElement>("#font");
-
-        if (!fontSizeInput) {
-            throw new Error("Cannot find font-size input");
-        }
-
-        this.fontSizeInput = fontSizeInput;
-
-        const alignSelect =
-            this.form.querySelector<HTMLSelectElement>("#align");
-
-        if (!alignSelect) {
-            throw new Error("Cannot find align select");
-        }
-
-        this.alignSelect = alignSelect;
-
-        const downloadPng =
-            this.form.querySelector<HTMLButtonElement>("[name=png]");
-
-        if (!downloadPng) {
-            throw new Error("Cannot find download PNG button");
-        }
-
-        this.downloadPng = downloadPng;
-
-        const downloadSvg =
-            this.form.querySelector<HTMLButtonElement>("[name=svg]");
-
-        if (!downloadSvg) {
-            throw new Error("Cannot find download SVG button");
-        }
-
-        this.downloadSvg = downloadSvg;
+        this.themeSelect = this.querySelector<HTMLSelectElement>(
+            "#theme",
+            "Cannot find theme select",
+        );
+        this.textarea = this.querySelector<HTMLTextAreaElement>(
+            "textarea",
+            "Cannot find text area",
+        );
+        this.fontSizeInput = this.querySelector<HTMLInputElement>(
+            "#font",
+            "Cannot find font-size input",
+        );
+        this.alignSelect = this.querySelector<HTMLSelectElement>(
+            "#align",
+            "Cannot find align select",
+        );
+        this.downloadPng = this.querySelector<HTMLButtonElement>(
+            "[name=png]",
+            "Cannot find download PNG button",
+        );
+        this.downloadSvg = this.querySelector<HTMLButtonElement>(
+            "[name=svg]",
+            "Cannot find download SVG button",
+        );
 
         this.form.addEventListener("submit", (event) => event.preventDefault());
     }
@@ -118,5 +89,18 @@ export class SettingsManager {
 
     get textAlign(): TextAlign {
         return this.alignSelect.value as TextAlign;
+    }
+
+    protected querySelector<E extends Element = Element>(
+        selector: string,
+        error: string,
+    ): E {
+        const element = this.form.querySelector<E>(selector);
+
+        if (!element) {
+            throw new Error(error);
+        }
+
+        return element;
     }
 }

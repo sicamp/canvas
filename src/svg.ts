@@ -39,29 +39,22 @@ export class SvgBuilder {
     private readonly location: SVGTextElement;
 
     constructor(private readonly element: SVGElement) {
-        const theme = this.element.querySelector<SVGGeometryElement>(".theme");
-
-        if (!theme) {
-            throw new Error("Cannot find theme element");
-        }
-
-        this.theme = theme;
-
-        const title = this.element.querySelector<SVGTextElement>(".title");
-
-        if (!title) {
-            throw new Error("Cannot find title element");
-        }
-
-        this.title = title;
-
-        const stripes = this.element.querySelector<SVGElement>(".stripes");
-
-        if (!stripes) {
-            throw new Error("Cannot find stripes element");
-        }
-
-        this.stripes = stripes;
+        this.theme = this.querySelector<SVGGeometryElement>(
+            ".theme",
+            "Cannot find theme element",
+        );
+        this.title = this.querySelector<SVGTextElement>(
+            ".title",
+            "Cannot find title element",
+        );
+        this.stripes = this.querySelector<SVGElement>(
+            ".stripes",
+            "Cannot find stripes element",
+        );
+        this.location = this.querySelector<SVGTextElement>(
+            ".location",
+            "Cannot find title element",
+        );
 
         const [left, right] =
             this.element.querySelectorAll<SVGTextElement>(".year");
@@ -71,15 +64,6 @@ export class SvgBuilder {
         }
 
         this.year = [left, right];
-
-        const location =
-            this.element.querySelector<SVGTextElement>(".location");
-
-        if (!location) {
-            throw new Error("Cannot find title element");
-        }
-
-        this.location = location;
     }
 
     setTheme(newTheme: string) {
@@ -245,5 +229,18 @@ export class SvgBuilder {
         rect.setAttribute("class", className);
 
         return rect;
+    }
+
+    protected querySelector<E extends Element = Element>(
+        selector: string,
+        error: string,
+    ): E {
+        const element = this.element.querySelector<E>(selector);
+
+        if (!element) {
+            throw new Error(error);
+        }
+
+        return element;
     }
 }
