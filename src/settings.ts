@@ -1,7 +1,10 @@
+export type TextAlign = "left" | "center" | "right";
+
 type SettingsData = {
     theme: string;
     title: string;
     fontSize: number;
+    textAlign: TextAlign;
 };
 
 interface SettingsChangeHandler {
@@ -14,11 +17,12 @@ export class SettingsManager {
     private readonly themeSelect: HTMLSelectElement;
     private readonly textarea: HTMLTextAreaElement;
     private readonly fontSizeInput: HTMLInputElement;
+    private readonly alignSelect: HTMLSelectElement;
     private readonly downloadButton: HTMLButtonElement;
 
     constructor(private readonly form: HTMLFormElement) {
         const themeSelect =
-            this.form.querySelector<HTMLSelectElement>("select");
+            this.form.querySelector<HTMLSelectElement>("#theme");
 
         if (!themeSelect) {
             throw new Error("Cannot find theme select");
@@ -44,6 +48,15 @@ export class SettingsManager {
 
         this.fontSizeInput = fontSizeInput;
 
+        const alignSelect =
+            this.form.querySelector<HTMLSelectElement>("#align");
+
+        if (!alignSelect) {
+            throw new Error("Cannot find align select");
+        }
+
+        this.alignSelect = alignSelect;
+
         const downloadButton =
             this.form.querySelector<HTMLButtonElement>("button");
 
@@ -62,12 +75,14 @@ export class SettingsManager {
                 theme: this.theme,
                 title: this.title,
                 fontSize: this.fontSize,
+                textAlign: this.textAlign,
             });
         };
 
         this.themeSelect.addEventListener("change", handler);
         this.textarea.addEventListener("input", handler);
         this.fontSizeInput.addEventListener("change", handler);
+        this.alignSelect.addEventListener("change", handler);
     }
 
     onDownload(callback: () => void) {
@@ -85,5 +100,9 @@ export class SettingsManager {
 
     get fontSize() {
         return parseInt(this.fontSizeInput.value, 10) || DEFAULT_FONT_SIZE;
+    }
+
+    get textAlign(): TextAlign {
+        return this.alignSelect.value as TextAlign;
     }
 }

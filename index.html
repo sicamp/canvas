@@ -18,6 +18,12 @@
                 <textarea id="title" rows="8">Hello world</textarea>
                 <label for="font">Font size:</label>
                 <input id="font" type="number" value="72" />
+                <label for="align">Align:</label>
+                <select id="align">
+                    <option value="left" selected>Left</option>
+                    <option value="center">Center</option>
+                    <option value="right">Right</option>
+                </select>
                 <button type="button">Download</button>
             </form>
             <div class="preview">
@@ -99,11 +105,9 @@
                         />
                         <text
                             class="title"
-                            x="320"
                             y="400"
                             font-family="Jost"
                             font-weight="700"
-                            text-anchor="start"
                         />
                     </g>
                 </svg>

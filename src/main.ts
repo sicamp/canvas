@@ -27,12 +27,17 @@ cover
     .addStripes(STRIPE_COLORS)
     .setYear(new Date().getUTCFullYear())
     .setLocation("Пермь")
-    .setTitle({ text: settings.title, fontSize: settings.fontSize });
+    .setTitle({
+        text: settings.title,
+        fontSize: settings.fontSize,
+        textAlign: settings.textAlign,
+    });
 
 settings.onSettingsChange((data) => {
     cover.setTitle({
         text: data.title,
         fontSize: data.fontSize,
+        textAlign: data.textAlign,
     });
 
     cover.setTheme(data.theme);
