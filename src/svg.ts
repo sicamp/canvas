@@ -1,9 +1,11 @@
 import { THEMES } from "./constants";
+import { type TextAlign } from "./settings";
 import { randomInt } from "./utils";
 
 type TextOptions = {
     text: string;
     fontSize: number;
+    textAlign: TextAlign;
 };
 
 type RectangleOptions = {
@@ -93,6 +95,21 @@ export class SvgBuilder {
 
         while (this.title.firstChild) {
             this.title.removeChild(this.title.firstChild);
+        }
+
+        switch (options.textAlign) {
+            case "left":
+                this.title.setAttribute("x", "320");
+                this.title.setAttribute("text-anchor", "start");
+                break;
+            case "center":
+                this.title.setAttribute("x", "730");
+                this.title.setAttribute("text-anchor", "middle");
+                break;
+            case "right":
+                this.title.setAttribute("x", "1180");
+                this.title.setAttribute("text-anchor", "end");
+                break;
         }
 
         const offsetFirst = ((1 - lines.length) / 2) * lineHeight;
