@@ -49,13 +49,13 @@ npm run dev # Запустить приложение в режиме разра
 
 Запускает проверку кодстайла.
 
-Сделано на [prettier](https://prettier.io/).
+Сделано на [biome](https://biomejs.dev/).
 
-### `npm run reformat`
+### `npm run lint:fix`
 
 Причёсывает код.
 
-Сделано на [prettier](https://prettier.io/).
+Сделано на [biome](https://biomejs.dev/).
 
 ## CI
 

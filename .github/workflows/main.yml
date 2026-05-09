@@ -19,7 +19,7 @@ jobs:
             - name: install dependencies
               run: npm ci
             - name: lint
-              run: npm run lint
+              run: npm run lint:ci
 
     audit:
         runs-on: ubuntu-latest

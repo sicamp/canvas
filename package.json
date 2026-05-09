@@ -7,12 +7,12 @@
     "dev": "vite",
     "build": "tsc && vite build --base=\"${PUBLIC_URL:-/}\"",
     "preview": "vite preview",
-    "lint": "npm run style",
-    "style": "prettier --check src index.html",
-    "reformat": "prettier --write src index.html"
+    "lint": "biome check --error-on-warnings",
+    "lint:fix": "biome check --error-on-warnings --write",
+    "lint:ci": "biome ci --error-on-warnings"
   },
   "devDependencies": {
-    "prettier": "3.2.5",
+    "@biomejs/biome": "2.4.14",
     "typescript": "6.0.3",
     "vite": "8.0.11"
   }
