@@ -1,5 +1,5 @@
 import { THEMES } from "./constants";
-import { type TextAlign } from "./settings";
+import type { TextAlign } from "./settings";
 import { randomInt } from "./utils";
 
 type TextOptions = {
@@ -70,7 +70,9 @@ export class SvgBuilder {
     }
 
     setTheme(newTheme: string) {
-        THEMES.forEach((theme) => this.theme.classList.remove(theme));
+        THEMES.forEach((theme) => {
+            this.theme.classList.remove(theme);
+        });
 
         this.theme.classList.add(newTheme);
 
@@ -106,7 +108,7 @@ export class SvgBuilder {
             const tspan = document.createElementNS(this.nameSpace, "tspan");
 
             tspan.textContent = line.trim() || "\u00a0";
-            tspan.setAttribute("x", this.title.getAttribute("x")!);
+            tspan.setAttribute("x", this.title.getAttribute("x") ?? "");
             tspan.setAttribute(
                 "dy",
                 index > 0 ? `${lineHeight}em` : `${offsetFirst}em`,
@@ -154,7 +156,7 @@ export class SvgBuilder {
     createSvgUri() {
         const value = this.element.outerHTML.replace(/&nbsp;/g, "\u00a0");
 
-        return "data:image/svg+xml," + encodeURIComponent(value);
+        return `data:image/svg+xml,${encodeURIComponent(value)}`;
     }
 
     async createPngUri() {
@@ -163,7 +165,11 @@ export class SvgBuilder {
 
             img.addEventListener("load", () => {
                 const canvas = document.createElement("canvas");
-                const ctx = canvas.getContext("2d")!;
+                const ctx = canvas.getContext("2d");
+
+                if (!ctx) {
+                    throw new Error("Canvas 2D context is not available");
+                }
 
                 // Устанавливаем размеры canvas
                 canvas.width = viewPortWidth;

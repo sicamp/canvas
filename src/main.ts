@@ -1,8 +1,8 @@
 import { STRIPE_COLORS } from "./constants";
+import { download } from "./download";
 import { getFontsRules } from "./fonts";
 import { SettingsManager } from "./settings";
 import { SvgBuilder } from "./svg";
-import { download } from "./download";
 
 import "./style.css";
 

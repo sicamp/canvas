@@ -7,9 +7,7 @@ type SettingsData = {
     textAlign: TextAlign;
 };
 
-interface SettingsChangeHandler {
-    (data: SettingsData): void;
-}
+type SettingsChangeHandler = (data: SettingsData) => void;
 
 const DEFAULT_FONT_SIZE = 80;
 
